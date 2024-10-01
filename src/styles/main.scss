@@ -1,7 +1,11 @@
+// main.scss
 @import 'abstracts/variables';
 @import 'base/reset';
 @import 'base/typography';
 @import 'components/button';
 @import 'components/camera';
-@import 'components/error';
-@import 'components/home';
+@import 'components/error-screen';
+@import 'layout/header';
+@import 'pages/home';
+@import 'themes/theme';
+@import 'utilities/helpers';

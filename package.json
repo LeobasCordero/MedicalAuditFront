@@ -1,36 +1,47 @@
 {
   "name": "medical-audit",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-qr-barcode-scanner": "1.0.6",
+    "react-scripts": "5.0.1",
+    "react-webcam": "^7.0.1",
+    "sass": "^1.56.0",
+    "typescript": "^4.9.4",
+    "web-vitals": "^2.1.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "4.0.3",
-    "typescript": "^4.1.2",
-    "react-webcam": "^7.0.0",
-    "react-qr-barcode-scanner": "^1.0.6",
-    "sass": "^1.32.8"
-  },
-  "devDependencies": {
-    "@types/react": "^16.13.1",
-    "@types/react-dom": "^16.13.1"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    ">0.2%",
+    "not dead",
+    "not op_mini all",
+    "samsung 4.0",
+    "and_chr 90"
+  ],
+  "development": [
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version",
+    "last 1 samsung version",
+    "last 1 and_chr version"
+  ]
+  },
+  "devDependencies": {
+    "@testing-library/react": "^11.2.7",
+    "@types/testing-library__react": "^10.0.1"
   }
 }

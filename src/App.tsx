@@ -1,39 +1,43 @@
 import React, { useState } from 'react';
-import Home from './pages/Home/Home';
+import Home from './components/Home/Home';
 import Camera from './components/Camera/Camera';
-import ErrorScreen from './components/Error/ErrorScreen';
+import ScanResult from './components/ScanResult/ScanResult';
+import './styles/main.scss';
+
+enum Screen {
+  HOME,
+  CAMERA,
+  RESULT,
+}
 
 const App: React.FC = () => {
-  const [showCamera, setShowCamera] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [scannedCode, setScannedCode] = useState<string | null>(null);
+  const [currentScreen, setCurrentScreen] = useState<Screen>(Screen.HOME);
+  const [scannedCode, setScannedCode] = useState<string>('');
 
-  const handleActivateCamera = () => {
-    setShowCamera(true);
-    setShowError(false);
+  const handleStartScanning = () => {
+    setCurrentScreen(Screen.CAMERA);
   };
 
   const handleCodeScanned = (code: string) => {
     setScannedCode(code);
-    setShowCamera(false);
+    setCurrentScreen(Screen.RESULT);
   };
 
-  const handleError = () => {
-    setShowError(true);
-    setShowCamera(false);
-  };
-
-  const handleRetry = () => {
-    setShowCamera(false);
-    setShowError(false);
+  const handleGoBack = () => {
+    setCurrentScreen(Screen.HOME);
   };
 
   return (
-    <div>
-      {!showCamera && !showError && <Home onActivateCamera={handleActivateCamera} />}
-      {showCamera && <Camera onCodeScanned={handleCodeScanned} onError={handleError} />}
-      {showError && <ErrorScreen onRetry={handleRetry} />}
-      {scannedCode && <p>Código Escaneado: {scannedCode}</p>}
+    <div className="app">
+      {currentScreen === Screen.HOME && (
+        <Home onStartScanning={handleStartScanning} />
+      )}
+      {currentScreen === Screen.CAMERA && (
+        <Camera onCodeScanned={handleCodeScanned} onError={handleGoBack} />
+      )}
+      {currentScreen === Screen.RESULT && (
+        <ScanResult code={scannedCode} onGoBack={handleGoBack} />
+      )}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Webcam from 'react-webcam';
-//import { QRScanner } from '@yudiel/react-qr-scanner';
-import { QrScanner } from '@yudiel/react-qr-scanner';
+import { QrScanner, Result } from '@yudiel/react-qr-scanner';
 import styles from './Camera.module.scss';
 
 interface CameraProps {
@@ -21,6 +20,15 @@ const Camera: React.FC<CameraProps> = ({ onCodeScanned, onError }) => {
     onError();
   };
 
+  const handleScan = (result: Result | null) => {
+    if (result) {
+      const scannedText = result.getText(); // Accede al texto usando el método público
+      if (scannedText) {
+        onCodeScanned(scannedText);
+      }
+    }
+  };
+
   if (hasCameraPermission === false) {
     return null;
   }
@@ -34,8 +42,10 @@ const Camera: React.FC<CameraProps> = ({ onCodeScanned, onError }) => {
           onUserMediaError={handleUserMediaError}
         />
       ) : (
-        <QrScanner onResult={(result) => onCodeScanned(result.getText())} />
-
+        <QrScanner
+          onResult={handleScan}
+          constraints={{ facingMode: 'environment' }} // Utiliza la cámara trasera si está disponible
+        />
       )}
     </div>
   );
